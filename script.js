@@ -6,22 +6,26 @@ function getNumbers(){
 	});
 }
 
-getNumbers().then((numbers)=>{
-	return new promise((resolve)=>{
-	   setTimeout(()=>{
-		   const evens = numbers.filter(num => num%2 === 0);
-		   document.getElementById("output").textContent =`Filter Evens: ${even.join(", ")}`;
-		   resolve(evens);
-	   },1000);
-	});
-})
+document.addEventListener("DOMContentLoaded",() =>{
+	const outputDiv = document.getElementById("output");
 
-.then((evenNumbers) =>{
-	return new promise ((resolve)=>{
-		setTimeout(()=>{
-			const doubled = evenNumbers.map(num => num*2);
-			document.getElementById("output").textContent = `Doubled Evens: ${doubled.join(", ")}`;
-			resolve(doubled);
-		},2000);
-	});
+	getNumbers().then((numbers)=>{
+		return new promise((resolve)=>{
+			setTimeout(()=>{
+				const evens = numbers.filter(num => num % 2 ===0);
+				outputDiv.textContent = `Filtered Evens: ${evens.join(", ")}`;
+				resolve(evens);
+			},1000);
+		});
+	})
+	.then((evenNumbers) => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const doubled = evenNumbers.map(num => num * 2); // Step 3: Multiply even numbers by 2
+                    outputDiv.textContent = `Doubled Evens: ${doubled.join(", ")}`;
+                    resolve(doubled);
+                }, 2000);
+            });
+        })
+        .catch(error => console.error("Error:", error));
 });
